@@ -28,6 +28,7 @@ public class EmployeeController {
    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
 
         try{
+			cacheOperations.cache.put(employee.getEmployeeId(), employee);
             Employee emp =  employeeRepositary.save(employee);
             return new ResponseEntity<>(emp, HttpStatus.CREATED);
         }catch(Exception e){
@@ -40,6 +41,7 @@ public class EmployeeController {
 
      Optional<Employee> empld = employeeRepositary.findById(employee.getEmployeeId());
      if(empld.isPresent()){
+		 cacheOperations.cache.put(employee.getEmployeeId(), employee);
          return new ResponseEntity<>(employeeRepositary.save(employee), HttpStatus.CREATED);
      }
        return new ResponseEntity<String>("Record corresponding to your id is not found,Check following...\n"+
