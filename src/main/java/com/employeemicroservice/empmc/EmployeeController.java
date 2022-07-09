@@ -66,7 +66,7 @@ public class EmployeeController {
 
    @GetMapping("/getAllEmployees")
    public ResponseEntity<List<Employee>> getAllEmployees(){
-
+   // Getting all employees from cache
         return new ResponseEntity<List<Employee>>(cacheOperations.cache.values().stream().collect(Collectors.toList()), HttpStatus.OK);
 
    }
