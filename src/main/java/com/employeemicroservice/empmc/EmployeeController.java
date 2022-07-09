@@ -62,12 +62,13 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/getAllEmployees")
-   public List<Employee> getAllEmployees(){
+   @GetMapping("/getAllEmployees")
+   public ResponseEntity<List<Employee>> getAllEmployees(){
 
-        return employeeRepositary.findAll();
+        return new ResponseEntity<List<Employee>>(cacheOperations.cache.values().stream().collect(Collectors.toList()), HttpStatus.OK);
 
    }
+   
    @DeleteMapping("/deleteEmployee/{id}")
    public String deleteEmployee(@PathVariable int id){
 
